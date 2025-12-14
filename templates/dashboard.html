@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h2 class="display-6">Demand Forecasting Overview</h2>
+        <p class="text-muted">Predictions for the next 14 Days</p>
+    </div>
+</div>
+
+<div class="row text-center mb-5">
+    <div class="col-md-4">
+        <div class="card p-4">
+            <h5 class="text-muted">Total Active Customers</h5>
+            <h1 class="display-4 text-primary">{{ total_customers }}</h1>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-4">
+            <h5 class="text-muted">Likely to Order (>50%)</h5>
+            <h1 class="display-4 text-success">{{ likely_buyers }}</h1>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-4">
+            <h5 class="text-muted">Critical Stock Items</h5>
+            <h1 class="display-4 text-danger">{{ critical_stock_items }}</h1>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">🔥 Top 5 High Demand Products</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Predicted 14-Day Demand</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in top_items %}
+                        <tr>
+                            <td>{{ item.item_name }}</td>
+                            <td><strong>{{ item['14_day_demand'] }}</strong> units</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

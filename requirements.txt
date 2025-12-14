@@ -1,0 +1,20 @@
+# Web Framework
+flask
+
+# Data Manipulation
+pandas
+numpy
+openpyxl
+
+# Machine Learning & Modeling
+scikit-learn
+lightgbm
+xgboost
+joblib
+
+# Visualization
+matplotlib
+seaborn
+
+# Utility
+gunicorn

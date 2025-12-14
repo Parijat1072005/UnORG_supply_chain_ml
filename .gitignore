@@ -126,3 +126,41 @@ celerybeat.pid
 # =======================================================
 docs/_build/
 target/
+# --- Python & System Garbage ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.DS_Store
+Thumbs.db
+
+# --- Virtual Environments ---
+# Keeps your local environment settings out of the repo
+venv/
+env/
+.env
+
+# --- IDE Settings ---
+# Keeps your personal VS Code settings out of the repo
+.vscode/
+.idea/
+
+# --- Jupyter Notebook Checkpoints ---
+.ipynb_checkpoints/
+
+# --- Data Files (IMPORTANT) ---
+# Prevent uploading heavy Excel/CSV files
+# (Note: If you want to share small sample data, remove these lines)
+*.csv
+*.xlsx
+*.xls
+data/
+
+# --- Machine Learning Models ---
+# Prevent uploading large model binaries
+*.pkl
+models/
+
+# --- Flask Instance Folder ---
+instance/

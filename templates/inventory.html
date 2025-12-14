@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-3">
+    <div class="col-12">
+        <h2>Inventory Replenishment Plan</h2>
+        <p>AI-Driven restocking recommendations for the next cycle.</p>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Predicted Demand (14d)</th>
+                        <th>Current Stock</th>
+                        <th>Safety Stock</th>
+                        <th>⚠️ Recommended Order</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in inventory %}
+                    <tr class="{{ 'table-danger' if row.recommended_order > 0 else '' }}">
+                        <td>{{ row.item_name }}</td>
+                        <td>{{ row['14_day_demand'] | int }}</td>
+                        <td>{{ row.current_stock | int }}</td>
+                        <td>{{ row.safety_stock | int }}</td>
+                        <td>
+                            {% if row.recommended_order > 0 %}
+                                <strong>{{ row.recommended_order | int }}</strong>
+                            {% else %}
+                                <span class="text-muted">-</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

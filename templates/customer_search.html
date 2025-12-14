@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2 class="mb-4">Customer Insight Tool</h2>
+        
+        <div class="card p-4 mb-4">
+            <form method="POST">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="customer_id" placeholder="Enter Customer ID (e.g., 101)" required>
+                    <button class="btn btn-primary" type="submit">Analyze Customer</button>
+                </div>
+            </form>
+            {% if error %}
+                <div class="alert alert-danger mt-3">{{ error }}</div>
+            {% endif %}
+        </div>
+
+        {% if result %}
+        <div class="card">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Customer ID: {{ result.id }}</h5>
+                {% if result.probability > 50 %}
+                    <span class="badge bg-success">High Probability: {{ result.probability }}%</span>
+                {% else %}
+                    <span class="badge bg-warning text-dark">Low Probability: {{ result.probability }}%</span>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Predicted Next Order Composition</h5>
+                <p class="text-muted">Based on purchasing history and seasonality.</p>
+                
+                {% if result.recommendations %}
+                <table class="table table-hover mt-3">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Recommended Item</th>
+                            <th>Predicted Quantity</th>
+                            <th>Confidence Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in result.recommendations %}
+                        <tr>
+                            <td>{{ item.item_name }}</td>
+                            <td>{{ item.predicted_quantity }}</td>
+                            <td>{{ (item.selection_probability * 100) | round(1) }}%</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                    <p class="text-warning">No specific products recommended for the next 14 days.</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
